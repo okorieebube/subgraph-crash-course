@@ -1,0 +1,29 @@
+specVersion: 0.0.4
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Zora
+    network: mainnet
+    source:
+      address: "0xabEFBc9fD2F806065b4f3C237d4b59D9A97Bcac7"
+      abi: Zora
+      startBlock: 11565275
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Token
+        - User
+      abis:
+        - name: Zora
+          file: Zora/abis/Zora.json
+      eventHandlers:
+        - event: TokenMetadataURIUpdated(indexed uint256,address,string)
+          handler: handleTokenMetadataURIUpdated
+        - event: TokenURIUpdated(indexed uint256,address,string)
+          handler: handleTokenURIUpdated
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: Zora/Zora.wasm
